@@ -29,7 +29,19 @@
 #include <stdio.h>
 #include <string.h>
 
-#define PSTRING_LIBRARY_VERSION 3
+class XParts {
+private:
+    char *_pch;
+    const char *_dels;
+    char *_save;
+public:
+    XParts(char *buf, const char *dels) : _dels(dels), _save(NULL)
+    {
+        _pch = strtok_r(buf, _dels, &_save);
+    }
+    bool has_next();
+    char *get_next();
+};
 
 class XPString : public Print
 {
@@ -113,6 +125,7 @@ public:
     bool ends_with(const char *str);
     int index_of(const char *str);
     void reverse();
+    XParts split(const char *dels);
 };
 
 #endif /* XPString_h */

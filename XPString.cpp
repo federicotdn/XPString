@@ -22,6 +22,23 @@
 
 #include "XPString.h"
 
+bool XParts::has_next()
+{
+    return _pch != NULL;
+}
+
+char *XParts::get_next()
+{
+    char *tmp = _pch;
+    _pch = strtok_r(NULL, _dels, &_save);
+    return tmp;
+}
+
+XParts XPString::split(const char *dels)
+{
+    return XParts(_buf, dels);
+}
+
 void XPString::reset()
 {
     _cur = _buf;
