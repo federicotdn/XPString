@@ -121,6 +121,11 @@ public:
     // Safe access to sprintf-like formatting, e.g. str.format("Hi, my name is %s and I'm %d years old", name, age);
     int format(char *str, ...);
 
+    void append(XPString other);
+
+    void remove(unsigned index);
+    void remove(unsigned index, unsigned count);
+
     bool starts_with(const char *str);
     bool ends_with(const char *str);
     int index_of(const char *str);

@@ -1,5 +1,5 @@
 # XPString
-XPSString is a fork of Mikal Hart's PString library for the Arduino platform.  It adds some of the functionality offered by the Arduino `String` class.
+XPSString is a fork of Mikal Hart's PString library for the Arduino platform.  It adds some of the functionality offered by the Arduino [`String` class](https://www.arduino.cc/en/Reference/StringObject).
 
 ## Usage
 ```C++
@@ -55,6 +55,24 @@ void setup()
     //      part: separated
     //      part: values
     // The contents of myString will be modified by split().  myString should not be modified by the user before has_next() returns false.
+
+    myString = "You can also remove any part of the string.";
+    myString.remove(13, 7);
+    Serial.println(myString); // Prints: "You can also any part of the string."
+    myString.remove(29);
+    Serial.println(myString); // Prints: "You can also any part of the"
+    myString.remove(0); // myString is now empty
+
+    char smallbuf[10];
+    XPString otherString(smallbuf, 10);
+    otherString = "Hello!";
+
+    // Append contents of otherString to myString:
+    myString.append(otherString);
+    Serial.println(myString); // Prints: "Hello!"
+
+    // c_str() returns the String's backing buffer.
+    const char *backing_buf = myString.c_str();
 
     myString.reset();
     // use myString for other stuff...

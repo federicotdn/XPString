@@ -39,6 +39,12 @@ XParts XPString::split(const char *dels)
     return XParts(_buf, dels);
 }
 
+void XPString::append(XPString other)
+{
+    const char *other_buf = other.c_str();
+    print(other_buf);
+}
+
 void XPString::reset()
 {
     _cur = _buf;
@@ -128,4 +134,30 @@ int XPString::index_of(const char *str)
 void XPString::reverse()
 {
     strrev(_buf);
+}
+
+void XPString::remove(unsigned index)
+{
+    remove(index, length() - index);
+}
+
+void XPString::remove(unsigned index, unsigned count)
+{
+    size_t len = length();
+    if (index >= len || count == 0 || len == 0) {
+        return;
+    }
+
+    if (count > len - index) {
+        count = len - index;
+    }
+
+    char *start = &_buf[index];
+    char *end = &_buf[index + count];
+    unsigned i;
+    for (i = 0; i < len - (index + count); i++) {
+        start[i] = end[i];
+    }
+    start[i] = '\0';
+    _cur = &start[i];
 }
