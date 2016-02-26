@@ -39,6 +39,18 @@ XParts XPString::split(const char *dels)
     return XParts(_buf, dels);
 }
 
+XPString XPString::from_c_str(char *buf, size_t buf_len)
+{
+    size_t len = strnlen(buf, buf_len - 1);
+    XPString xps;
+    xps._buf = buf;
+    xps._cur = &buf[len];
+    xps._size = buf_len;
+    *xps._cur = '\0';
+
+    return xps;
+}
+
 void XPString::append(XPString other)
 {
     const char *other_buf = other.c_str();

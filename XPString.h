@@ -46,6 +46,8 @@ public:
 class XPString : public Print
 {
 private:
+    XPString() {}
+
     char *_buf, *_cur;
     size_t _size;
 
@@ -58,18 +60,7 @@ public:
         reset();
     }
 
-    // templated constructors allow inline renderings of this type: XPString(buf, size, myfloat[, modifier]);
-    template<class T> XPString(char *buf, size_t size, T arg) : _buf(buf), _size(size)
-    {
-        reset();
-        print(arg);
-    }
-
-    template<class T> XPString(char *buf, size_t size, T arg, int modifier) : _buf(buf), _size(size)
-    {
-        reset();
-        print(arg, modifier);
-    }
+    static XPString from_c_str(char *buf, size_t buf_len);
 
     // returns the length of the current string, not counting the 0 terminator
     inline const size_t length()
